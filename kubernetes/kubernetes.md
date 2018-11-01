@@ -16,7 +16,10 @@ WebShop on Kubernetes [1](https://gist.github.com/TRoetz/763c280f8216f7ece56310f
 
 ## Issues:
 OOM kill of coredns on Ubuntu, if systemd-resolved runs and /etc/resolv.conf contains 127.0.0.53 as nameserver: [1](https://github.com/kubernetes/kops/issues/5652) [2](https://github.com/kubernetes/kubeadm/issues/1037) [3](https://kubernetes.io/docs/setup/independent/kubelet-integration/)
+Solve OOM kill of coredns by disabling systemd-resolved on Ubuntu 18.04 [4](https://askubuntu.com/questions/907246/how-to-disable-systemd-resolved-in-ubuntu)
 
+    sudo systemctl disable systemd-resolved.service
+    sudo systemctl stop systemd-resolved
 
 ## Extra
 [Visualize app](https://www.weave.works/docs/scope/latest/installing/#k8s)
