@@ -9,6 +9,7 @@
 [Use Kubernetes to start user functions instead of docker directly:](https://github.com/apache/incubator-openwhisk-deploy-kube/blob/master/docs/configurationChoices.md#invoker-container-factory)
 [Values/keys:](https://github.com/apache/incubator-openwhisk-deploy-kube/blob/735e576f356500424d1a1e720064ca3182da644d/helm/openwhisk/values.yaml#L172)
 [Alternatives for certain implementations:](https://github.com/apache/incubator-openwhisk/blob/master/common/scala/src/main/resources/reference.conf#L6-#L15)
+[wskadmin](https://github.com/redhat-developer-demos/faas-tutorial/issues/16)
 
 ### Tools
 [Composer](https://github.com/ibm-functions/composer)
