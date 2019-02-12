@@ -24,3 +24,38 @@ Solve OOM kill of coredns by disabling systemd-resolved on Ubuntu 18.04 [4](http
 ## Extra
 [Visualize app](https://www.weave.works/docs/scope/latest/installing/#k8s)
 
+## Commands
+### All nodes
+
+As root, enter the following commands:
+
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    aptitude update
+    apt-cache policy docker-ce
+    aptitude install docker-ce
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    cat <<EOF > /etc/apt/sources.list.d/kubernetes.list \
+    deb http://apt.kubernetes.io/ kubernetes-xenial main \
+    EOF
+    aptitude update
+    aptitude install apt-transport-https
+    aptitude install kubelet kubeadm kubernetes-cni
+
+### On the Kubernetes master node
+
+As root, enter the following commands:
+
+    kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.144.144.13
+    su kubernetesuser
+    kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+### On the kubernetes slave nodes
+
+Join the cluster
+
+
+### Optional
+
+    kubectl taint nodes --all
+    kubectl taint nodes --all dedicated=
