@@ -21,6 +21,12 @@ Solve OOM kill of coredns by disabling systemd-resolved on Ubuntu 18.04 [4](http
     sudo systemctl disable systemd-resolved.service
     sudo systemctl stop systemd-resolved
 
+Also disable the management of /etc/resolv.conf by the NetworkManager by creating the file
+/etc/NetworkManager/conf.d/no-dns.conf with this content:
+
+    [main]
+    dns=none
+
 ## Extra
 [Visualize app](https://www.weave.works/docs/scope/latest/installing/#k8s)
 
