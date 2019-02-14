@@ -76,3 +76,35 @@ Install the flannel network:
 
     kubectl taint nodes --all
     kubectl taint nodes --all dedicated=
+
+### Install SSL certificate
+To run docker containers over SSL it is necessary that the container has an SSL certificate.
+All clients need to have the public key available.
+
+    mkdir /root/certs
+    cd /root/certs
+    openssl req -newkey rsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 3650 -out domain.crt
+    for k in kubernetesnodes; do
+        scp certs/domain.crt $k:/etc/docker/certs.d/dockerservernode\:dockerserverport/ca.crt;
+    done
+
+### Run a service in a docker container, which exports a socket over SSL
+
+Then on dockerservernode, start the container the following way:
+
+    docker run -d -p dockerserverport:dockerserverport --restart always \
+    -v /root/certs:/certs \
+    -e REGISTRY_HTTP_ADDR=0.0.0.0:dockerserverport \
+    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+    -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+    --name bla bla:2
+
+### Run a docker image registry on the kubernetes cluster on a specific node (not ideal, but works) on port 5000:
+
+    docker run -d -p 5000:5000 --restart always \
+    -v /root/certs:/certs \
+    -v /root/registrydata:/var/lib/registry \
+    -e REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
+    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+    -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+    --name registry registry:2
