@@ -49,16 +49,28 @@ As root, enter the following commands:
 
 ### On the Kubernetes master node
 
-As root, enter the following commands:
+As root, enter the following commands (kubernetesuser is a regular Unix username or your perosnal user id):
 
     kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.144.144.13
     su kubernetesuser
+    mkdir -p $HOME/.kube
+    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    chown $(id -u):$(id -g) $HOME/.kube/config
+    exit
     kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
 ### On the kubernetes slave nodes
 
-Join the cluster
+Join the cluster:
 
+    kubeadm join 192.144.144.13:6443 --token 123456.kjdjdhj --discovery-token-ca-cert-hash sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+
+
+### Again on the Kubernetes master node
+Install the flannel network:
+
+    kubectl get nodes
+    kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
 ### Optional
 
