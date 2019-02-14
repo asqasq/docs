@@ -41,12 +41,12 @@ As root, enter the following commands:
     aptitude update
     apt-cache policy docker-ce
     aptitude install docker-ce
+    aptitude install apt-transport-https
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
     cat <<EOF > /etc/apt/sources.list.d/kubernetes.list \
     deb http://apt.kubernetes.io/ kubernetes-xenial main \
     EOF
     aptitude update
-    aptitude install apt-transport-https
     aptitude install kubelet kubeadm kubernetes-cni
 
 ### On the Kubernetes master node
