@@ -54,7 +54,7 @@ YAML file as below configures the API host name and port as well as the method t
 start containers. In order to have kubernetes host and domain names created for
 function docker containers, it is needed to start function containers using the
 kubernetes mechanism, instead of the plain docker mechanism. To configure the invoker
-to start function containers using kubernetes.
+to start function containers using kubernetes. For example clusterconf.yaml:
 
         whisk:
           ingress:
@@ -76,7 +76,7 @@ to start function containers using kubernetes.
 
 
 
-### Install OpenWhisk with Helm
+### Label invker nodes
 First of all, label all nodes, which should operate as invokers, with the
 invoker label using the following command:
 
@@ -86,6 +86,27 @@ Or alternatively, if all nodes should be labelled:
 
         kubectl label nodes --all openwhisk-role=invoker
 
+
+### Install OpenWhisk with Helm
+The [OpenWhisk repository](https://github.com/apache/incubator-openwhisk-deploy-kube) needs to be cloned.
+
+        git clone https://github.com/apache/incubator-openwhisk-deploy-kube.git
+        
+Then, install OpenWhisk with Helm and apply the configuration file created above:
+
+        helm install incubator-openwhisk-deploy-kube/helm/openwhisk --namespace=openwhisk \
+            --name=owdev -f clusterconf.yaml
+
+### Checking, if OpenWhisk is running
+
+        helm status owdev
+        helm get owdev
+
+### Uninstalling OpenWhisk completely
+Should you want to remove OpenWhisk completely and remove its namespace from Kubernetes,
+execute the following command:
+
+        helm del --purge owdev
 
 
 ## Resources
