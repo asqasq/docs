@@ -29,6 +29,64 @@ Update the helm repo
     helm repo update
 
 
+### Download the wsk client
+To manage the OpenWhisk cluster, install, modify and execute functions,
+it is necessary to download the [wsk client](https://github.com/apache/incubator-openwhisk-cli).
+There are [binary releases](https://github.com/apache/incubator-openwhisk-cli/releases) available
+for download.
+
+        mkdir -p ~/openwhisk/wsk_client
+        cd ~/openwhisk/wsk_client
+        wget https://github.com/apache/incubator-openwhisk-cli/releases/download/latest/OpenWhisk_CLI-latest-linux-amd64.tgz
+        tar xvzf OpenWhisk_CLI-latest-linux-amd64.tgz
+        sudo cp wsk /usr/local/bin
+
+Then configure the wsk client with an API host and an authentication key. Without
+configuring users, use the default key (not for production systems):
+
+        wsk property set --apihost node01:31001
+        wsk property set --auth \ 
+            23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
+
+### Creating a cluster configuration file
+The cluster needs to be configured and set up according to this configuration. A small
+YAML file as below configures the API host name and port as well as the method to
+start containers. In order to have kubernetes host and domain names created for
+function docker containers, it is needed to start function containers using the
+kubernetes mechanism, instead of the plain docker mechanism. To configure the invoker
+to start function containers using kubernetes.
+
+        whisk:
+          ingress:
+            api_host_name: asq10.dri.zc2.ibm.com
+            api_host_port: 31001
+            type: NodePort
+          loadbalancer:
+            invokerUserMemory: "4096m"
+        nginx:
+          httpsNodePort: 31001
+
+        invoker:
+          containerFactory:
+            impl: "kubernetes"
+            kubernetes:
+              replicaCount: 2
+              agent:
+                enabled: true
+
+
+
+### Install OpenWhisk with Helm
+First of all, label all nodes, which should operate as invokers, with the
+invoker label using the following command:
+
+        kubectl label nodes node01 noe02 node03 node04 openwhisk-role=invoker
+
+Or alternatively, if all nodes should be labelled:
+
+        kubectl label nodes --all openwhisk-role=invoker
+
+
 
 ## Resources
 
