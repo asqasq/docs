@@ -7,26 +7,26 @@ Download helm from the [helm](https://github.com/helm/helm) homepage
 install it as described also [here](https://github.com/apache/incubator-openwhisk-deploy-kube/blob/master/docs/helm.md)
 using the following commands on the OpenWhisk master node:
 
-  wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz
-  tar xvzf helm-v2.12.3-linux-amd64.tar.gz
-  cd linux-amd64/
-  ./helm init
-  sudo cp ./helm /usr/local/bin
-  cd ../
-  rm -rf linux-amd64/
+    wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.3-linux-amd64.tar.gz
+    tar xvzf helm-v2.12.3-linux-amd64.tar.gz
+    cd linux-amd64/
+    ./helm init
+    sudo cp ./helm /usr/local/bin
+    cd ../
+    rm -rf linux-amd64/
 
 Verify that the tiller service is running:
 
-  kubectl get pods -n kube-system
+    kubectl get pods -n kube-system
 
 Create clusterrolebinding:
 
-  kubectl create clusterrolebinding tiller-cluster-admin --clusterrole=cluster-admin \
-    --serviceaccount=kube-system:default
+    kubectl create clusterrolebinding tiller-cluster-admin --clusterrole=cluster-admin \
+      --serviceaccount=kube-system:default
 
 Update the helm repo
 
-  helm repo update
+    helm repo update
 
 
 
