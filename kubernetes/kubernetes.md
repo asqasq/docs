@@ -49,9 +49,14 @@ As root, enter the following commands:
 
 ### On the Kubernetes master node
 
+The default configuration uses 10.244.0.0/16 for POD networks and 10.96.0.1 for the service network.
+If this conflicts with IPs used on hardware network interfaces, change the range with --pod-network-cidr
+and --service-cidr as well as in the kube-flannel.yaml configuration file (see below).
+
 As root, enter the following commands (kubernetesuser is a regular Unix username or your perosnal user id):
 
-    kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.144.144.13
+    kubeadm init --pod-network-cidr=192.168.128.0/20 --service-cidr=192.168.192.0/20 \
+        --apiserver-advertise-address=192.144.144.13
     su kubernetesuser
     mkdir -p $HOME/.kube
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
