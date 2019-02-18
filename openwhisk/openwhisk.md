@@ -58,7 +58,7 @@ to start function containers using kubernetes. For example clusterconf.yaml:
 
         whisk:
           ingress:
-            api_host_name: asq10.dri.zc2.ibm.com
+            api_host_name: node01
             api_host_port: 31001
             type: NodePort
           loadbalancer:
