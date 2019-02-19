@@ -1,20 +1,11 @@
 # Kubernetes
 
-## Resources
+## Scripts and configuration files used to install Kubernetes
+All configuration files and scripts used to install Kubernetes can be found here:
+https://github.com/asqasq/serverless/tree/master/kubernetes/deploy
 
 
-### Installation
-
-
-## Applications
-WebShop on Kubernetes [1](https://gist.github.com/TRoetz/763c280f8216f7ece56310fb68788de3) [2](https://www.mirantis.com/blog/how-install-kubernetes-kubeadm/)
-
-### Examples
-
-[Sock shop microservice on Kubernetes](https://github.com/microservices-demo/microservices-demo)
-
-
-## Issues:
+## Issues to be solved **before** installing Kubernetes:
 OOM kill of coredns on Ubuntu, if systemd-resolved runs and /etc/resolv.conf contains 127.0.0.53 as nameserver: [1](https://github.com/kubernetes/kops/issues/5652) [2](https://github.com/kubernetes/kubeadm/issues/1037) [3](https://kubernetes.io/docs/setup/independent/kubelet-integration/)
 [4](https://www.ctrl.blog/entry/resolvconf-tutorial)
 Solve OOM kill of coredns by disabling systemd-resolved on Ubuntu 18.04 [4](https://askubuntu.com/questions/907246/how-to-disable-systemd-resolved-in-ubuntu)
@@ -27,9 +18,6 @@ Also disable the management of /etc/resolv.conf by the NetworkManager by creatin
 
     [main]
     dns=none
-
-## Extra
-[Visualize app](https://www.weave.works/docs/scope/latest/installing/#k8s)
 
 ## Commands
 ### All nodes
@@ -114,3 +102,24 @@ Then on dockerservernode, start the container the following way:
     -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
     -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
     --name registry registry:2
+
+
+
+
+## Resources
+
+
+### Installation
+
+
+## Applications
+WebShop on Kubernetes [1](https://gist.github.com/TRoetz/763c280f8216f7ece56310fb68788de3) [2](https://www.mirantis.com/blog/how-install-kubernetes-kubeadm/)
+
+### Examples
+
+[Sock shop microservice on Kubernetes](https://github.com/microservices-demo/microservices-demo)
+
+
+## Extra
+[Visualize app](https://www.weave.works/docs/scope/latest/installing/#k8s)
+
