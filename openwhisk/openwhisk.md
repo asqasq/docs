@@ -58,11 +58,11 @@ to start function containers using kubernetes. For example clusterconf.yaml:
 
         whisk:
           ingress:
-            api_host_name: node01
-            api_host_port: 31001
+            apiHostName: node01
+            apiHostPort: 31001
             type: NodePort
           loadbalancer:
-            invokerUserMemory: "4096m"
+            invokerUserMemory: "512m"
         nginx:
           httpsNodePort: 31001
 
@@ -73,6 +73,11 @@ to start function containers using kubernetes. For example clusterconf.yaml:
               replicaCount: 2
               agent:
                 enabled: true
+
+        k8s:
+          persistence:
+            hasDefaultStorageClass: false
+            explicitStorageClass: nfs-client
 
 
 
