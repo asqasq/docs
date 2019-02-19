@@ -108,6 +108,10 @@ Then on dockerservernode, start the container the following way:
 
 ## Resources
 
+### Persistent volumes/storage
+[Persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+[Configure Pod to use persistent storage](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+[Example for persistent storage](https://developer.ibm.com/tutorials/add-nfs-provisioner-to-icp/)
 
 ### Installation
 
