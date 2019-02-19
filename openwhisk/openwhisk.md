@@ -48,6 +48,61 @@ configuring users, use the default key (not for production systems):
         wsk property set --auth \ 
             23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
 
+### Configure PersistentVolume via NFS client
+To serve OpenWhisk's PersistentVolumeClaims (PVC), we have to provide PersistentVolumes (PV). One
+possible way is a service, whch mounts an external NFS server export and which provisions
+PersistentVolumes based on the external NFS mount. Such an NFS client provisioner can be installed
+as [Helm chart](https://github.com/helm/charts/tree/master/stable/nfs-client-provisioner). A small
+configuration file specifies the NFS server and exported mount path with some additional options.
+This is an example configuration file nfs_client.yaml:
+
+        replicaCount: 1
+        strategyType: Recreate
+
+        nfs:
+          server: nfsservername.domain.nil
+          path: /data/kubernetes/pv
+          mountOptions:
+
+        # For creating the StorageClass automatically:
+        storageClass:
+          create: true
+          defaultClass: false
+
+          # Set a StorageClass name
+          name: nfs-client
+
+          # Allow volume to be expanded dynamically
+          allowVolumeExpansion: true
+
+          # Method used to reclaim an obsoleted volume
+          reclaimPolicy: Delete
+
+          # When set to false your PVs will not be archived by the provisioner upon deletion of the PVC.
+          archiveOnDelete: true
+
+          provisionerName: nfs-client-provisioner-from-nfsserver
+
+        ## For RBAC support:
+        rbac:
+          create: true
+        podSecurityPolicy:
+          enabled: false
+
+        serviceAccount:
+          # Specifies whether a ServiceAccount should be created
+          create: true
+
+          # The name of the ServiceAccount to use.
+          # If not set and create is true, a name is generated using the fullname template
+          name:
+
+The PersistenVolume service can be created by installing the Helm chart (linked above) with
+this command:
+
+        helm install stable/nfs-client-provisioner --name nfs-client \
+            --namespace nfs-client -f nfs_client.yaml
+
 ### Creating a cluster configuration file
 The cluster needs to be configured and set up according to this configuration. A small
 YAML file as below configures the API host name and port as well as the method to
