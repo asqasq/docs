@@ -162,7 +162,7 @@ to start function containers using kubernetes. For example clusterconf.yaml:
 
 
 
-### Label invker nodes
+### Label invoker nodes
 First of all, label all nodes, which should operate as invokers, with the
 invoker label using the following command:
 
