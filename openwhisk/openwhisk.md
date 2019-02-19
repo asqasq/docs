@@ -1,5 +1,9 @@
 # OpenWhisk
 
+## Scripts and configuration files used to install OpenWhisk as described here
+All configuration files and scripts used to install OpenWhisk on Kubernetes can be found here:
+https://github.com/asqasq/serverless/tree/master/openwhisk/deploy
+
 ## Commands
 ### Install Helm
 Download helm from the [helm](https://github.com/helm/helm) homepage
