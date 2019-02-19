@@ -103,6 +103,32 @@ this command:
         helm install stable/nfs-client-provisioner --name nfs-client \
             --namespace nfs-client -f nfs_client.yaml
 
+The PersistentVoulme can be tested/used by creating a PersistentVolumeClaim with the following
+configurationj stored in nfs-test-claim.yaml:
+
+        kind: PersistentVolumeClaim
+        apiVersion: v1
+        metadata:
+          name: nfsasq
+        spec:
+          accessModes:
+            - ReadWriteMany
+          resources:
+            requests:
+              storage: 1Mi
+          storageClassName: nfs-client
+
+The first command creates the PVC and the second and third commands inspect, if the creation succeeded:
+
+        kubectl create -f nfs-test-claim.yaml
+        kubectl get pvc
+        kubectl describe pvc nfsasq
+
+To delete the PVC, use the following command:
+
+        kubectl delete -f nfs-test-claim.yaml
+
+
 ### Creating a cluster configuration file
 The cluster needs to be configured and set up according to this configuration. A small
 YAML file as below configures the API host name and port as well as the method to
