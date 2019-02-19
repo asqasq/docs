@@ -161,6 +161,13 @@ to start function containers using kubernetes. For example clusterconf.yaml:
             explicitStorageClass: nfs-client
 
 
+If you don't need or don't want persistence, you can turn it of by setting enabled to false
+in the cluster configuration file:
+
+        k8s:
+          persistence:
+            enabled: false
+
 
 ### Label invoker nodes
 First of all, label all nodes, which should operate as invokers, with the
