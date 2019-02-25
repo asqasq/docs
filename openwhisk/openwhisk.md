@@ -206,6 +206,26 @@ execute the following command:
         helm del --purge owdev
 
 
+## Administration
+OpenWhisk uses wskadmin to administer the OpenWhisk cluster. While earlier it was a standalon
+program, it now runs as a POD on the Kubernetes cluster within the OpenWhisk namespace.
+The [deployment page](https://github.com/apache/incubator-openwhisk-deploy-kube) shows how
+to execute wskadmi and the
+[Administrative Operations](https://github.com/apache/incubator-openwhisk/tree/master/tools/admin)
+page explains the available commands.
+
+To create a new user in a separate namespace, execute the following command:
+
+        kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin user create blabla -ns ns01
+
+Then set the new AUTH key returned by the command above in the ~/.wskprops file.
+
+To increase the invocation limit per minute, execute the following command:
+
+        kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits get ns01
+        kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits set ns01 --invocationsPerMinute 1000
+
+
 ## Resources
 
 ### Installation
