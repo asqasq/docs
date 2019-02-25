@@ -229,6 +229,10 @@ To increase the number of concurrent invocations, execute the following command:
 
         kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits set ns01 --concurrentInvocations 1000
 
+## Measuring performance
+
+This [tool](https://github.com/IBM/overhead) measures the performance of OpenWhisk.
+
 
 ## Resources
 
