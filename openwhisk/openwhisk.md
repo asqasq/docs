@@ -229,6 +229,13 @@ To increase the number of concurrent invocations, execute the following command:
 
         kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits set ns01 --concurrentInvocations 1000
 
+To increase the number of trigger fired per minute, execute the following command:
+
+        kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits set ns01 --firesPerMinute 1000
+
+Setting the values to 999999 disables the thorrtling completely.
+
+
 ## Measuring performance
 
 This [tool](https://github.com/IBM/overhead) measures the performance of OpenWhisk.
