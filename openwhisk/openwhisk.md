@@ -256,6 +256,9 @@ This [tool](https://github.com/IBM/overhead) measures the performance of OpenWhi
 
 [Dynamic storage/PersistentVolume with NFS](https://github.com/apache/incubator-openwhisk-deploy-kube/blob/master/docs/k8s-nfs-dynamic-storage.md)
 
+### Debugging
+The [Whisk debugger wskdb](https://github.com/apache/incubator-openwhisk-debugger) is a debugger based on OpenWhisk functions and rules and wllows debugging OpenWhisk applications. A short overview can be found in these [slides](https://de.slideshare.net/StephenFink1/openwhisk-under-the-hood-london-oct-16-2016?next_slideshow=1).
+
 ### Tools
 [Composer](https://github.com/ibm-functions/composer)
 
