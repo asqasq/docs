@@ -1,0 +1,92 @@
+Serverless function directly talks RDMA to storage solution
+- advantages:
+  - native RDMA integration
+  - fast communication
+- challenges:
+  - need to be able to pass-through RDMA device to docker container (not solved)
+  - need connection cache and registered memory cache to avoid
+    connection and registration overhead on every function invocation
+  - flexibility, elasticity, migration vs. pinned and registered memory
+
+Serverless function interacts with RDMA proxy/dispatcher via socket
+- advantages:
+  - docker container could use regular available TCP/IP socket to closest proxy
+  - no RDMA device access needed in docker container
+  - RDMA proxy acts as storage client and caches conenctions to storage backend
+  - avoids expensive connection setup and memory registration
+  - migration/elasticity easier, since TCP/IP connection on the virtual
+    network has no state on the hardware.
+  - Serverless function container placement is independent of physical
+    proxy location.
+- challenges:
+  - TCP/IP connection to proxy should not become bottleneck (data copy, RPC)
+  - Ideally chose closest (on the same physical node) RDMA proxy
+
+Serverless function interacts with RDMA proxy via socket and shared memory
+- advantages:
+  - docker container could use regular available TCP/IP socket for RPC
+  - docker container directly writes application data to shared RDMA host memory
+  - Zero-copy of application data
+  - no RDMA device access needed in docker container
+  - RDMA proxy acts as storage client and caches conenctions to storage backend
+  - avoids expensive connection setup and memory registration
+- challenges:
+  - Need serverless container to be on same physical node as proxy container
+  - Need proxy on every physical node
+  - migration only after docker container has terminated due to shared memory
+
+RDMA storeage client as service in function container
+- advantages:
+  - no separate proxy necessary, on function invocation, storage client starts
+  - caching of connections and registered RDMA memory, as long as container
+    is hot
+  - fast access from serverless function to storage client in same container
+- challenges:
+  - need pass-through of RDMA device to docker container
+  - flexibility, elasticity, migration vs. pinned and registered memory
+
+RDMA storage as attachable persistent volume
+- advantages:
+  - clean and transparent integration of RDMA storage service, like any other
+    storage types
+-challenges:
+  - potentially adds more layers of software from persistent volume API
+    to actual fast RDMA storage system
+  - works fine for containers, however serverless functions are not aware
+    of persistent volumes, since they are designed to be stateless.
+  - need to have serverless framework to acquire persisten volume mounts
+    on containers running serverless functions
+  - need to introduce API to serverless functions to talk to persisten volume
+    mounted into function container
+
+
+General challenges:
+- docker allows to pass-through
+  - mount points from host
+  - mount persisten volumes
+  - pass-through devices (even RDMA devices)
+  - shared memory to host or other docker containers
+
+- Kubernetes has only limited support
+  - no host mount points (since container may be palced on any host)
+  - no device pass-through (RDMA device can't be seen in container)
+  - unclear to which extend shared memory is possible
+  - not all options recognized by docker can be defined in POD description file
+  - maybe possible to use RDMA device plugin (under investigation)
+
+- OpenWhisk
+  - no notion of persistent storage
+  - not possible to specify configuration parameters used for container creation
+    - docker to create function containers
+      - not possible to specify command line arguments recognized by docker
+      - would need to change OpenWhisk source code
+    - Kubernetes to create function containers
+      - not possible to use POD description file alogn with docker image
+      - can only specify docker image while creating functions, but no YAML
+      - would need to change Kubernetes and OpenWhisk source code
+
+- Device handling
+  - visibility of device
+  - resource management (hardware resources, buffers, ...)
+  - migration
+
