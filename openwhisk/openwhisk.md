@@ -240,6 +240,10 @@ Setting the values to 999999 disables the thorrtling completely.
 
 This [tool](https://github.com/IBM/overhead) measures the performance of OpenWhisk.
 
+## Advanced debugging
+
+OpenWhisk containers can be run directly in docker and it is possible to interact with the
+container using the REST API. Here is an [article](https://medium.com/openwhisk/advanced-debugging-of-openwhisk-actions-518414636932) explaining more details.
 
 ## Resources
 
