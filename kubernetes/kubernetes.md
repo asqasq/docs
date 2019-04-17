@@ -113,6 +113,10 @@ Then on dockerservernode, start the container the following way:
 [Configure Pod to use persistent storage](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
 [Example for persistent storage](https://developer.ibm.com/tutorials/add-nfs-provisioner-to-icp/)
 
+### RDMA support within containers / PODs
+[RDMA support](https://medium.com/@Alibaba_Cloud/using-rdma-on-container-service-for-kubernetes-c7a4484c22b5)
+[2](https://www.alibabacloud.com/blog/using-rdma-on-container-service-for-kubernetes_594462?spm=a2c41.12560487.0.0)
+
 ### Installation
 
 
