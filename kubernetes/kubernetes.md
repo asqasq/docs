@@ -19,6 +19,13 @@ Also disable the management of /etc/resolv.conf by the NetworkManager by creatin
     [main]
     dns=none
 
+### *Don't forget to set a DNS IP address*!
+After disabling systemd-resolved, it is necessary to manually set the IP address of a DNS server.
+Edit the /etc/resolved.conf file and set the DNS IP:
+
+    nameserver 10.11.12.13
+    search your.domain.tld
+
 ## Commands
 ### All nodes
 
