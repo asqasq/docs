@@ -113,6 +113,36 @@ Then on dockerservernode, start the container the following way:
 
 
 
+## Upgrading the cluster
+There is an official [documentation](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/) on hot to upgrade the cluster.
+
+The simplified variant of just upgrading everything and restarting the cluster (only for experimental clusters, where all physical host can be rebooted and availability of Kubernetes is not necessary) follows below:
+
+### Upgrade the binaries on _all nodes_
+
+    apt update
+    apt upgrade
+
+Then check for the currently installed version (binary version, not yet the version the cluster runs at):
+
+    kubeadm version
+
+### Upgrade the cluster on the _master node only_
+
+    sudo kubeadm upgrade plan
+    sudo kubeadm upgrade apply v1.15.0
+
+### Upgrade config on _all nodes_
+
+In this simplified version, all node configs get upgraded simultaneously without putting the nodes in cordon state and therefore without draining work assigned to the nodes.
+
+    sudo kubeadm upgrade node config --kubelet-version v1.15.0
+
+Finally restart the nodes.
+
+These simplified instructions work fine for an experimental cluster, but not for a cluster in production!
+
+
 ## Resources
 
 ### Persistent volumes/storage
