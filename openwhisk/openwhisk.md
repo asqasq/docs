@@ -172,6 +172,7 @@ in the cluster configuration file:
           persistence:
             enabled: false
 
+More configuration variables can be set and are listed in [this file](https://github.com/apache/openwhisk/blob/master/ansible/group_vars/all).
 
 ### Label invoker nodes
 First of all, label all nodes, which should operate as invokers, with the
