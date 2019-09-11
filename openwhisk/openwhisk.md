@@ -276,6 +276,13 @@ Simple chat client on OpenWhisk: [1](https://www.youtube.com/watch?v=hGl__huStnc
 ### Python libraries included by default
 [Python 2 and 3 libraries:](https://github.com/apache/incubator-openwhisk/blob/master/docs/actions-python.md)
 
+### Building native binaries for actions
+Binaries have to be compiled for the specific target Apline OpenWhisk containers. They cannot just be
+copied in binary form from Ubuntu or another distribution. In fact, this means, that the source files
+have to be compiled in the same environment as they will be executed, when the action gets triggered.
+Please follow [these instructions](https://github.com/apache/openwhisk/blob/master/docs/actions-docker.md)
+to compile sources to a native binary able to execute within actions.
+
 ### Random other links
 https://stackoverflow.com/questions/43827471/parsing-and-saving-multipart-form-data-from-a-file-using-werkzeug
 [Flask multipart parser:](https://gist.github.com/tgwizard/95b82c98e17e72a4c3c0d75dda19eef4)
