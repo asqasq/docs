@@ -237,6 +237,17 @@ To increase the number of trigger fired per minute, execute the following comman
 Setting the values to 999999 disables the thorrtling completely.
 
 
+## Changing values and applying them
+Sometimes it is necessary to change or add more customized values to a runnning OpenWhisk installaion.
+An example could be that the maximum allowed memory for action should be increased, while OpenWhisk
+is already installed an running (with a too low max value).
+The new values can be prepared in the cluster configuration yaml file and applied the following way:
+
+        helm upgrade --reuse-values -f clusterconf_new.yaml \
+             owdev incubator-openwhisk-deploy-kube/helm/openwhisk
+
+See also [this discussion](https://stackoverflow.com/questions/48927233/updating-kubernetes-helm-values).
+
 ## Measuring performance
 
 This [tool](https://github.com/IBM/overhead) measures the performance of OpenWhisk.
