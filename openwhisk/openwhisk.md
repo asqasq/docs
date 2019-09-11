@@ -246,7 +246,9 @@ The new values can be prepared in the cluster configuration yaml file and applie
         helm upgrade --reuse-values -f clusterconf_new.yaml \
              owdev incubator-openwhisk-deploy-kube/helm/openwhisk
 
-See also [this discussion](https://stackoverflow.com/questions/48927233/updating-kubernetes-helm-values).
+See also [this discussion](https://stackoverflow.com/questions/48927233/updating-kubernetes-helm-values)
+and the [list of values](
+https://github.com/apache/openwhisk/blob/d85a722b66980af8e7dd9a3d61918020ba45bcea/common/scala/src/main/resources/application.conf#L302), which can be adjusted.
 
 ## Measuring performance
 
