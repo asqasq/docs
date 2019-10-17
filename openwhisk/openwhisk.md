@@ -221,6 +221,10 @@ To create a new user in a separate namespace, execute the following command:
 
 Then set the new AUTH key returned by the command above in the ~/.wskprops file.
 
+To list the available users belonging to a given namespace, use the following command:
+
+        kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin user list ns01 -a
+
 To increase the invocation limit per minute, execute the following command:
 
         kubectl -n openwhisk -ti exec owdev-wskadmin -- wskadmin limits get ns01
