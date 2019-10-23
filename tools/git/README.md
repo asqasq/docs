@@ -16,3 +16,10 @@ For example:
         git push origin :mybranch
 
 
+## Removing something accidentally added
+If you added something accidentally, you can remove it just after you added it (and did not
+commit it yet):
+
+        $ git add something_accidentally
+        git rm --cached something_accidentally
+
