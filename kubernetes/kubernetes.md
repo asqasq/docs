@@ -29,18 +29,26 @@ Edit the /etc/resolved.conf file and set the DNS IP:
 ## Commands
 ### All nodes
 
+docker.io became alive again and can be used instead of docker-ce (which does not have packages for Ubuntu eoan),
+so we can install docker.io and get a up-to-date version, which works with Kubernetes.
+
 As root, enter the following commands:
+
+    aptitude install docker.io
+    aptitude install apt-transport-https
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+    aptitude update
+    aptitude install kubelet kubeadm kubernetes-cni
+
+For Ubuntu 18.04, I used to install docker-ce the following way (not needed anymore, if you install docker.io):
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     aptitude update
     apt-cache policy docker-ce
     aptitude install docker-ce
-    aptitude install apt-transport-https
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-    echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
-    aptitude update
-    aptitude install kubelet kubeadm kubernetes-cni
+
 
 ### On the Kubernetes master node
 
