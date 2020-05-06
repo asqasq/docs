@@ -1,6 +1,6 @@
-# Tips and tricks around using gnuplot
+# Tips and tricks around gnuplot
 
-## APlot vertical lines at x-axis points specified by a data file
+## Plot vertical lines at x-axis points specified by a data file
 Sometimes it is helpful to mark events with vertical lines in a plot.
 The events might come from the data file directly, so we need a method
 of drawing vertical lines based on the data file.
