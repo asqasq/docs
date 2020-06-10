@@ -151,6 +151,20 @@ Finally restart the nodes.
 These simplified instructions work fine for an experimental cluster, but not for a cluster in production!
 
 
+## Performance monitoring
+Prometheus can be deployed directly using helm to the kubernetes cluster.
+
+Forward three ports to the local machine, so that you can use http://localhost:<forwarded port>
+
+    kubectl port-forward -n monitoring prometheus-prometheus-operator-prometheus-0 9090
+
+Grafana:
+    kubectl port-forward $(kubectl get  pods --selector=app=grafana -n  monitoring --output=jsonpath="{.items..metadata.name}") -n monitoring  3000
+
+Alerts:
+    kubectl port-forward -n monitoring alertmanager-prometheus-operator-alertmanager-0 9093
+
+
 ## Resources
 
 ### Persistent volumes/storage
